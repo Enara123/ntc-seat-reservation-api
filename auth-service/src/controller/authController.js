@@ -1,62 +1,26 @@
-import bcrypt from "bcryptjs";
-import { User, Role, UserRole } from "../models/index.js";
-import jwt from "jsonwebtoken";
+import authService, { checkUserExists } from "../service/authService.js";
 
 export const register = async (req, res) => {
-  console.log(req.body);
-  const { firstName, lastName, email, telephone, password, username, role } = req.body;
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({
-      firstName,
-      lastName,
-      email,
-      telephone,
-      password: hashedPassword,
-      username,
-    });
+    const userData = req.body;
+    const roleId = 5;
 
-    if (role) {
-      const roleRecords = await Role.findAll({ where: { name: role } });
+    const newUser = await authService.addUser(userData, roleId);
 
-      for (const roleRecord of roleRecords) {
-        await UserRole.create({
-          userId: user.id,
-          roleId: roleRecord.id,
-        });
-      }
-    } else {
-      const defaultRole = await Role.findOne({ where: { name: "user" } });
-
-      await UserRole.create({
-        userId: user.id, // The ID of the newly created user
-        roleId: defaultRole.id, // The ID of the default 'user' role
-      });
-    }
-
-    res.status(201).json({ message: "User registered successfully" });
+    res.status(201).json({ message: "User created successfully", data: newUser });
   } catch (error) {
-    res.status(500).json({ error: "Registration failed" });
+    console.error(error);
+    res.status(500).json({ message: "Failed to create user", error: error.message });
   }
 };
 
-const SECRET_KEY = process.env.JWT_SECRET_KEY;
-
 export const login = async (req, res) => {
-  const { email, password } = req.body;
+  const { username, password } = req.body;
+
   try {
-    const user = await User.findOne({ where: { email } });
-    if (!user) return res.status(404).json({ error: "User not found" });
-
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) return res.status(401).json({ error: "Invalid password" });
-
-    const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, SECRET_KEY, {
-      expiresIn: "1h",
-    });
-
-    res.json({ token });
+    const { accessToken, refreshToken } = await checkUserExists(username, password);
+    res.status(200).json({ message: "Login Successful", accessToken, refreshToken });
   } catch (error) {
-    res.status(500).json({ error: "Login failed" });
+    res.status(400).json({ message: error.message });
   }
 };
