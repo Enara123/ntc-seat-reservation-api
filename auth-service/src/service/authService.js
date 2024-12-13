@@ -1,5 +1,7 @@
 import { User } from "../models/index.js";
 import { UserRole } from "../models/index.js";
+import { RoleAccess } from "../models/roleAccess.js"
+import { RoleAccessMapping } from "../models/roleAccessMapping.js";
 import jwt from "jsonwebtoken";
 
 const secret_key = process.env.JWT_SECRET;
@@ -33,8 +35,6 @@ export const addUser = async (user, roleId) => {
 export const checkUserExists = async (username, password) => {
   try {
     const user = await User.findOne({ where: { username } });
-    const userId = user.userId;
-    const roleId = await UserRole.findOne({ where: { userId } });
 
     if (!user) {
       throw new Error("User not found");
@@ -44,14 +44,60 @@ export const checkUserExists = async (username, password) => {
       throw new Error("Invalid credentials");
     }
 
-    const accessToken = jwt.sign({ username, userId, roleId }, secret_key, { expiresIn: "5min" });
+    const userId = user.userId;
 
-    const refreshToken = jwt.sign({ username, userId }, secret_key, { expiresIn: "1h" });
+    const userRole = await UserRole.findAll({ where: { userId } });
+
+    if (!userRole.length) {
+      throw new Error("No roles assigned to this user");
+    }
+
+    // Extract roleIds
+    const roleIds = userRole.map((userRole) => userRole.roleId);
+
+    // Find all access permissions for these roles
+    const roleAccessMappings = await RoleAccessMapping.findAll({
+      where: { roleId: roleIds },
+    });
+
+    if (!roleAccessMappings.length) {
+      throw new Error("No access permissions found for the assigned roles");
+    }
+
+    // Extract accessIds from the mappings
+    const accessIds = roleAccessMappings.map((mapping) => mapping.accessId);
+
+    // Retrieve the access details from the RoleAccess table
+    const roleAccesses = await RoleAccess.findAll({
+      where: { accessId: accessIds },
+    });
+
+    // Build the permissions array
+    const permissions = roleAccesses.map((access) => ({
+      resource: access.resource,
+      accessType: access.accessType,
+    }));
+
+    // Create access and refresh tokens
+    const accessToken = jwt.sign(
+      { username, userId, roleIds, permissions },
+      secret_key,
+      { expiresIn: "5min" }
+    );
+
+    const refreshToken = jwt.sign(
+      { username, userId },
+      secret_key,
+      { expiresIn: "1h" }
+    );
 
     return { accessToken, refreshToken };
+
   } catch (error) {
+
     console.log(error);
     throw new Error(error.message);
+
   }
 };
 
