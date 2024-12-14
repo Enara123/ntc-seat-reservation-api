@@ -33,6 +33,15 @@ const Bus = sequelize.define('Bus', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    routeId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        references: {
+            model: 'route',
+            key: 'routeId',
+        },
+        onDelete: 'SET NULL',
+    },
 }, {
     tableName: 'buses',
     timestamps: false,

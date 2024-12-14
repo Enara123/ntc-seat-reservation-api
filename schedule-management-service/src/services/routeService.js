@@ -1,3 +1,4 @@
+import Bus from "../models/bus.js";
 import Route from "../models/route.js";
 
 export const createRoute = async (routeData) => {
@@ -12,6 +13,9 @@ export const getRouteById = async (routeId) => {
     return await Route.findByPk(routeId);
 };
 
+export const getBusesInRoute = async (routeId) => {
+    return await Bus.findAll({ where: { routeId } });
+}
 
 export const updateRoute = async (routeId, updateData) => {
     const route = await Route.findByPk(routeId);
@@ -26,4 +30,4 @@ export const deleteRoute = async (routeId) => {
     return true;
 };
 
-export default { createRoute, getAllRoutes, getRouteById, updateRoute, deleteRoute };
+export default { createRoute, getAllRoutes, getRouteById, getBusesInRoute, updateRoute, deleteRoute };

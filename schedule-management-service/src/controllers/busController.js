@@ -1,4 +1,4 @@
-import BusService from "../services/busService";
+import BusService from "../services/busService.js";
 
 export const createBus = async (req, res) => {
     try {
