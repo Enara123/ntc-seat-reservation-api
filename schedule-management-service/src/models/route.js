@@ -22,7 +22,7 @@ const Route = sequelize.define('Route', {
     },
 }, {
     tableName: 'route',
-    timestamps: false,
+    timestamps: true,
 });
 
 export default Route;
