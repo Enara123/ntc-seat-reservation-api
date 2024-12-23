@@ -10,6 +10,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.7",
@@ -18,8 +21,5 @@
     "mysql2": "^3.11.5",
     "sequelize": "^6.37.5"
   },
-  "type": "module",
-  "devDependencies": {
-    "nodemon": "^3.1.9"
-  }
+  "type": "module"
 }
