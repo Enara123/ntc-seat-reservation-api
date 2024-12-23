@@ -21,7 +21,7 @@ const RoleAccess = sequelize.define('RoleAccess', {
     },
 }, {
     tableName: 'role_access',
-    timestamps: false,
+    timestamps: true,
 });
 
 export default RoleAccess;
