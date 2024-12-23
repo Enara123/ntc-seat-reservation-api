@@ -44,7 +44,7 @@ const Bus = sequelize.define('Bus', {
     },
 }, {
     tableName: 'buses',
-    timestamps: false,
+    timestamps: true,
 });
 
 export default Bus;
