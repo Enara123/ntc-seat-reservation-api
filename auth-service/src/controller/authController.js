@@ -3,7 +3,7 @@ import authService, { checkUserExists } from "../service/authService.js";
 export const register = async (req, res) => {
   try {
     const userData = req.body;
-    const roleId = 5;
+    const roleId = 1;
 
     const newUser = await authService.addUser(userData, roleId);
 
