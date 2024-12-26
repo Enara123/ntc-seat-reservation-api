@@ -1,5 +1,7 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const authMiddleware = (req, res, next) => {
   const authorizationHeader = req.headers["authorization"];
@@ -38,7 +40,12 @@ const authMiddleware = (req, res, next) => {
     }
 
     const userPermissions = payload.permissions || {};
-    if (!hasPermissions(userPermissions[resource], accessType)) {
+
+    // Get all permissions for the resource
+    const permissions = userPermissions.filter(p => p.resource === resource);
+    console.log("Resource permissions:", permissions);
+
+    if (!hasPermissions(permissions, accessType)) {
       return res.status(403).json({
         message: "User does not have permission to access this resource",
       });
@@ -81,11 +88,14 @@ const getAccessType = (method) => {
   }
 };
 
-const hasPermissions = (userPermissions, requiredPermission) => {
+const hasPermissions = (userPermissions, accessType) => {
   if (!userPermissions) {
     return false;
   }
-  return userPermissions.includes(requiredPermission);
+  // Check if any permission includes the required access type
+  const hasAccess = userPermissions.some(p => p.accessType.split(',').includes(accessType));
+
+  return hasAccess;
 };
 
 export default authMiddleware;
