@@ -6,10 +6,12 @@ import scheduleTemplateRoutes from "./routes/scheduleTemplateRoutes.js";
 import scheduleRoutes from "./routes/scheduleRoutes.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import dotenv from "dotenv";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 
