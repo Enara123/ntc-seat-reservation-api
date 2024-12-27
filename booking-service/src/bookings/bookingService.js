@@ -124,8 +124,8 @@ const processBooking = async () => {
 // Run the booking processor in a loop
 setInterval(processBooking, 30000);
 
-const getBookingById = async (bookingId) => {
-    return await Booking.findById(bookingId);
+const getBookingById = async (nic) => {
+    return await Booking.findById(nic);
 };
 
 const updateBooking = async (bookingId, bookingData) => {

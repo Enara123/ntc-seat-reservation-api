@@ -19,9 +19,9 @@ export const createBooking = async (req, res) => {
 
 export const getBooking = async (req, res) => {
     try {
-        const bookingId = req.params.id;
+        const nic = req.body;
 
-        const booking = await bookingService.getBookingById(bookingId);
+        const booking = await bookingService.getBookingByNIC(nic);
 
         if (!booking) {
             return res.status(404).json({
