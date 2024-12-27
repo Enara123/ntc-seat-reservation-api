@@ -3,7 +3,7 @@ import CityService from "../services/cityService.js"
 export const createCity = async (req, res) => {
     try {
         const city = await CityService.createCity(req.body);
-        res.status(201).json(city);
+        res.status(201).json({ message: 'City created successfully', city });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
@@ -12,7 +12,7 @@ export const createCity = async (req, res) => {
 export const getAllCities = async (req, res) => {
     try {
         const cities = await CityService.getAllCities();
-        res.status(200).json(cities);
+        res.status(200).json({ message: cities });
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
