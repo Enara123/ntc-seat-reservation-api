@@ -2,6 +2,8 @@ import express from "express";
 import authRoutes from "./routes/authRoutes.js";
 import dotenv from "dotenv";
 import cors from "cors";
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from '../swagger.js';
 
 dotenv.config();
 
@@ -10,6 +12,8 @@ app.use(cors());
 
 app.use(express.json());
 app.use("/auth", authRoutes);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const PORT = process.env.PORT;
 
