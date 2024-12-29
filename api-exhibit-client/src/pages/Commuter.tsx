@@ -10,13 +10,13 @@ const Commuter: React.FC = () => {
       </Typography>
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/schedule/:scheduleId"
+        endpointUrl="https://silunienara.me/schedule/:scheduleId"
         httpMethod="GET"
         fields={[{ label: "Schedule ID", key: "scheduleId", value: "1" }]}
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5001/booking"
+        endpointUrl="https://silunienara.me/booking"
         httpMethod="POST"
         fields={[
           { label: "Name", key: "name", value: "Tharini" },
@@ -28,7 +28,7 @@ const Commuter: React.FC = () => {
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5001/booking/:NIC"
+        endpointUrl="https://silunienara.me/booking/:NIC"
         httpMethod="GET"
         fields={[{ label: "NIC", key: "NIC", value: "992233445V" }]}
       />

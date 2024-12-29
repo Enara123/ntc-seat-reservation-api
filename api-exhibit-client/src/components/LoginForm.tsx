@@ -9,7 +9,7 @@ const LoginForm: React.FC = () => {
 
   const handleLogin = async () => {
     try {
-      const res = await axios.post("http://localhost:5002/auth/login", {
+      const res = await axios.post("https://silunienara.me/auth/login", {
         username,
         password,
       });
@@ -43,7 +43,7 @@ const LoginForm: React.FC = () => {
       {/* Form Section */}
       <Box sx={{ flex: 1 }}>
         <Typography variant="h6" gutterBottom>
-          POST http://localhost:5002/auth/login
+          POST https://silunienara.me/auth/login
         </Typography>
 
         <TextField
