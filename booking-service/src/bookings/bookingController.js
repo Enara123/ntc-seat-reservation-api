@@ -11,6 +11,7 @@ export const createBooking = async (req, res) => {
             booking,
         });
     } catch (error) {
+        console.log("Error creating booking:", error);
         res.status(500).json({
             error: error.message,
         });
@@ -19,9 +20,11 @@ export const createBooking = async (req, res) => {
 
 export const getBooking = async (req, res) => {
     try {
-        const nic = req.body;
+        const NIC = req.params.id;
 
-        const booking = await bookingService.getBookingByNIC(nic);
+        console.log("NIC:", NIC);
+
+        const booking = await bookingService.getBookingsByNIC(NIC);
 
         if (!booking) {
             return res.status(404).json({
@@ -34,6 +37,7 @@ export const getBooking = async (req, res) => {
         res.status(500).json({
             error: error.message,
         });
+        console.log("Error getting booking:", error);
     }
 };
 
