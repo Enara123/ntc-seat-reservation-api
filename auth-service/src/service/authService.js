@@ -79,7 +79,7 @@ export const checkUserExists = async (username, password) => {
 
 export const handleRefreshToken = async (refreshToken) => {
   try {
-    const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    const decoded = jwt.verify(refreshToken, secret_key);
     const { username, userId } = decoded;
 
     const roleIds = await getRoleIds(userId);
@@ -87,19 +87,19 @@ export const handleRefreshToken = async (refreshToken) => {
 
     const accessToken = jwt.sign(
       { username, userId, roleIds, permissions },
-      process.env.ACCESS_TOKEN_SECRET,
+      secret_key,
       { expiresIn: "15m" }
     );
 
     const newRefreshToken = jwt.sign(
       { username, userId },
-      process.env.REFRESH_TOKEN_SECRET,
+      secret_key,
       { expiresIn: "7d" }
     );
 
     return { accessToken, refreshToken: newRefreshToken };
   } catch (error) {
-    throw new Error("Invalid refresh token");
+    throw new Error("Invalid refresh token", error.message);
   }
 };
 
