@@ -112,13 +112,13 @@ export const updateSchedule = async (scheduleId, routeId, replacementDetails) =>
     const { newBusId, reasonForChange, startTime, endTime, remarks, status } = replacementDetails;
 
     try {
-
+        const parsedDetails = JSON.parse(replacementDetails);
         const schedule = await Schedule.findOne({
             where: {
                 scheduleId,
                 routeId,
-                startTime: moment.utc(startTime).toISOString(),
-                endTime: moment.utc(endTime).toISOString()
+                startTime: moment.utc(parsedDetails.startTime).toISOString(),
+                endTime: moment.utc(parsedDetails.endTime).toISOString()
             },
         });
 
