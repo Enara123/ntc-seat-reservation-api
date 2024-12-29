@@ -19,7 +19,7 @@ app.use(authMiddleware);
 
 app.use("/bus", busRoutes);
 app.use("/cities", cityRoutes);
-app.use("/route", routeRoutes);
+app.use("/routes", routeRoutes);
 app.use("/schedule-template", scheduleTemplateRoutes);
 app.use("/schedule", scheduleRoutes);
 

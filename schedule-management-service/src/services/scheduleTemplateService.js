@@ -6,9 +6,18 @@ export const createSchedule = async (scheduleTemplateData, scheduleTemplateDetai
     const transaction = await ScheduleTemplate.sequelize.transaction();
 
     try {
-        const scheduleTemplate = await ScheduleTemplate.create(scheduleTemplateData, { transaction });
+        const parsedData = JSON.parse(scheduleTemplateData);
+        const parsedDetailsData = JSON.parse(scheduleTemplateDetailsData);
+        console.log(parsedData.routeId);
+        const scheduleTemplate = await ScheduleTemplate.create({
+            routeId: parsedData.routeId,
+            direction: parsedData.direction,
+            startTime: parsedData.startTime,
+            endTime: parsedData.endTime,
+            recurrencePattern: parsedData.recurrencePattern
+        }, { transaction });
 
-        const scheduleTemplateDetailsWithTemplateId = scheduleTemplateDetailsData.map((detail) => ({
+        const scheduleTemplateDetailsWithTemplateId = parsedDetailsData.map((detail) => ({
             ...detail,
             templateId: scheduleTemplate.templateId,
         }));
@@ -20,6 +29,7 @@ export const createSchedule = async (scheduleTemplateData, scheduleTemplateDetai
         return scheduleTemplate;
     } catch (error) {
         await transaction.rollback();
+        console.error("Error creating schedule template:", error);
         throw error;
     }
 };

@@ -1,9 +1,9 @@
-import authService, { checkUserExists } from "../service/authService.js";
+import authService, { checkUserExists, handleRefreshToken } from "../service/authService.js";
 
 export const register = async (req, res) => {
   try {
     const userData = req.body;
-    const roleId = 1;
+    const roleId = 2;
 
     const newUser = await authService.addUser(userData, roleId);
 
@@ -22,5 +22,18 @@ export const login = async (req, res) => {
     res.status(200).json({ message: "Login Successful", accessToken, refreshToken });
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+};
+
+export const refresh = async (req, res) => {
+  const { refreshToken } = req.body;
+
+  if (!refreshToken) return res.status(400).json({ message: "Refresh token missing" });
+
+  try {
+    const tokens = await authService.handleRefreshToken(refreshToken);
+    res.json(tokens);
+  } catch (error) {
+    res.status(403).json({ message: "Invalid refresh token" });
   }
 };

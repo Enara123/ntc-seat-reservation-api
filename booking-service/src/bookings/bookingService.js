@@ -1,7 +1,8 @@
 import axios from "axios";
-import Booking from "./models/bookingModel.js";
+import Booking from "../bookings/models/bookingModel.js";
 import dotenv from "dotenv";
 import { SQSClient, SendMessageCommand, ReceiveMessageCommand, DeleteMessageCommand } from "@aws-sdk/client-sqs";
+import tokenUtils from "../../middleware/tokenUtils.js";
 
 dotenv.config();
 
@@ -16,37 +17,48 @@ const sqsClient = new SQSClient({
 const queueUrl = 'https://sqs.eu-north-1.amazonaws.com/340752822947/seat-booking-queue';
 
 async function getScheduleById(scheduleId) {
+    const serviceToken = tokenUtils.generateServiceToken();
+
     try {
-        const response = await axios.get(
-            `http://localhost:5000/schedule/${scheduleId}`,
-        );
-        return response;
+        const response = await axios.get(`http://localhost:5000/schedule/${scheduleId}`, {
+            headers: {
+                Authorization: `Bearer ${serviceToken}`,
+            },
+        });
+        console.log('response', response.data);
+        return response.data;
     } catch (error) {
         throw new Error("Error fetching scheduleId: " + error.message);
     }
 }
 
 async function getBusById(busId) {
-    console.log("busId", busId);
+    const serviceToken = tokenUtils.generateServiceToken();
+
     try {
-        const response = await axios.get(
-            `http://localhost:5000/bus/${busId}`,
-        );
-        return response;
+        const response = await axios.get(`http://localhost:5000/bus/${busId}`, {
+            headers: {
+                Authorization: `Bearer ${serviceToken}`,
+            },
+        });
+        return response.data;
     } catch (error) {
-        throw new Error("Error fetching scheduleId: " + error.message);
+        throw new Error("Error fetching busId: " + error.message);
     }
 }
 
 export const createBooking = async (data) => {
     const { name, contact, NIC, scheduleId, seatsBooked } = data;
 
-    const schedule = await getScheduleById(scheduleId);
-    const fetchedScheduleId = schedule.data.scheduleId;
-    const scheduledDateTime = schedule.data.startTime;
 
-    const busDetails = await getBusById(schedule.data.busId);
-    const seatCapacity = busDetails.data.seatCount;
+
+    const schedule = await getScheduleById(scheduleId);
+    console.log("Schedule ID:", schedule.scheduleId);
+    const fetchedScheduleId = schedule.scheduleId;
+    const scheduledDateTime = schedule.startTime;
+
+    const busDetails = await getBusById(schedule.busId);
+    const seatCapacity = busDetails.seatCount;
 
     // Check if there are existing bookings for the same bus and date
     const existingBookings = await Booking.findAll({
@@ -124,8 +136,8 @@ const processBooking = async () => {
 // Run the booking processor in a loop
 setInterval(processBooking, 30000);
 
-const getBookingById = async (bookingId) => {
-    return await Booking.findById(bookingId);
+const getBookingsByNIC = async (NIC) => {
+    return await Booking.findAll({ where: { NIC } });
 };
 
 const updateBooking = async (bookingId, bookingData) => {
@@ -136,4 +148,4 @@ const deleteBooking = async (bookingId) => {
     return await Booking.findByIdAndDelete(bookingId);
 };
 
-export default { createBooking, getBookingById, updateBooking, deleteBooking };
+export default { createBooking, getBookingsByNIC, updateBooking, deleteBooking };
