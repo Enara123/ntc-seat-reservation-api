@@ -13,7 +13,7 @@ const BusOperator: React.FC = () => {
       <LoginForm />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5002/auth/register"
+        endpointUrl="https://silunienara.me/auth/register"
         httpMethod="POST"
         fields={[
           { label: "First Name", key: "firstName", value: "Janith" },
@@ -26,7 +26,7 @@ const BusOperator: React.FC = () => {
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/bus/"
+        endpointUrl="https://silunienara.me/bus/"
         httpMethod="POST"
         fields={[
           { label: "Operator ID", key: "operatorId", value: 101 },
@@ -39,16 +39,16 @@ const BusOperator: React.FC = () => {
         ]}
       />
 
-      <ApiEndpointCard endpointUrl="http://localhost:5000/bus" httpMethod="GET" fields={[]} />
+      <ApiEndpointCard endpointUrl="https://silunienara.me/bus" httpMethod="GET" fields={[]} />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/bus/:busId"
+        endpointUrl="https://silunienara.me/bus/:busId"
         httpMethod="GET"
         fields={[{ label: "Bus ID", key: "busId", value: "1" }]}
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/bus/:busId"
+        endpointUrl="https://silunienara.me/bus/:busId"
         httpMethod="PUT"
         fields={[
           { label: "Bus ID", key: "busId", value: "21" },
@@ -61,7 +61,7 @@ const BusOperator: React.FC = () => {
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/bus/:busId"
+        endpointUrl="https://silunienara.me/bus/:busId"
         httpMethod="DELETE"
         fields={[{ label: "Bus ID", key: "busId", value: "21" }]}
       />

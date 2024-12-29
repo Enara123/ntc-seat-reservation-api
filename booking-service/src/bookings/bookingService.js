@@ -20,7 +20,7 @@ async function getScheduleById(scheduleId) {
     const serviceToken = tokenUtils.generateServiceToken();
 
     try {
-        const response = await axios.get(`http://localhost:5000/schedule/${scheduleId}`, {
+        const response = await axios.get(`https://silunienara.me/schedule/${scheduleId}`, {
             headers: {
                 Authorization: `Bearer ${serviceToken}`,
             },
@@ -36,7 +36,7 @@ async function getBusById(busId) {
     const serviceToken = tokenUtils.generateServiceToken();
 
     try {
-        const response = await axios.get(`http://localhost:5000/bus/${busId}`, {
+        const response = await axios.get(`https://silunienara.me/bus/${busId}`, {
             headers: {
                 Authorization: `Bearer ${serviceToken}`,
             },

@@ -14,21 +14,21 @@ const NtcAdminPage: React.FC = () => {
 
       {/* City Endpoints */}
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/cities"
+        endpointUrl="https://silunienara.me/cities"
         httpMethod="POST"
         fields={[{ label: "City Name", key: "name", value: "Kalutara" }]}
       />
 
-      <ApiEndpointCard endpointUrl="http://localhost:5000/cities" httpMethod="GET" fields={[]} />
+      <ApiEndpointCard endpointUrl="https://silunienara.me/cities" httpMethod="GET" fields={[]} />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/cities/:cityId"
+        endpointUrl="https://silunienara.me/cities/:cityId"
         httpMethod="GET"
         fields={[{ label: "City ID", key: "cityId", value: "1" }]}
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/cities/:cityId"
+        endpointUrl="https://silunienara.me/cities/:cityId"
         httpMethod="PUT"
         fields={[
           { label: "City ID", key: "cityId", value: "1" },
@@ -37,14 +37,14 @@ const NtcAdminPage: React.FC = () => {
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/cities/:cityId"
+        endpointUrl="https://silunienara.me/cities/:cityId"
         httpMethod="DELETE"
         fields={[{ label: "City ID", key: "cityId", value: "1" }]}
       />
 
       {/* Route Endpoints */}
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/routes"
+        endpointUrl="https://silunienara.me/routes"
         httpMethod="POST"
         fields={[
           { label: "Route Name", key: "routeName", value: "Colombo-Jaffna" },
@@ -53,16 +53,16 @@ const NtcAdminPage: React.FC = () => {
         ]}
       />
 
-      <ApiEndpointCard endpointUrl="http://localhost:5000/routes" httpMethod="GET" fields={[]} />
+      <ApiEndpointCard endpointUrl="https://silunienara.me/routes" httpMethod="GET" fields={[]} />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/routes/:routeId"
+        endpointUrl="https://silunienara.me/routes/:routeId"
         httpMethod="GET"
         fields={[{ label: "Route ID", key: "routeId", value: "1" }]}
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/routes/:routeId"
+        endpointUrl="https://silunienara.me/routes/:routeId"
         httpMethod="PUT"
         fields={[
           { label: "Route ID", key: "routeId", value: "1" },
@@ -73,14 +73,14 @@ const NtcAdminPage: React.FC = () => {
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/routes/:routeId"
+        endpointUrl="https://silunienara.me/routes/:routeId"
         httpMethod="DELETE"
         fields={[{ label: "Route ID", key: "routeId", value: "1" }]}
       />
 
       {/*Route City Endpoints */}
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/routes/:routeId/cities"
+        endpointUrl="https://silunienara.me/routes/:routeId/cities"
         httpMethod="POST"
         fields={[
           { label: "Route ID", key: "routeId", value: "1" },
@@ -90,13 +90,13 @@ const NtcAdminPage: React.FC = () => {
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/routes/:routeId/cities"
+        endpointUrl="https://silunienara.me/routes/:routeId/cities"
         httpMethod="GET"
         fields={[{ label: "Route ID", key: "routeId", value: "1" }]}
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/routes/:routeId/cities/:routeCityId"
+        endpointUrl="https://silunienara.me/routes/:routeId/cities/:routeCityId"
         httpMethod="PUT"
         fields={[
           { label: "Route City ID", key: "routeCityId", value: "1" },
@@ -105,14 +105,14 @@ const NtcAdminPage: React.FC = () => {
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/routes/:routeId/cities/:routeCityId"
+        endpointUrl="https://silunienara.me/routes/:routeId/cities/:routeCityId"
         httpMethod="DELETE"
         fields={[{ label: "Route City ID", key: "routeCityId", value: "1" }]}
       />
 
       {/*Buses in Route Endpoint */}
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/routes/:routeId/buses"
+        endpointUrl="https://silunienara.me/routes/:routeId/buses"
         httpMethod="GET"
         fields={[{ label: "Route ID", key: "routeId", value: "1" }]}
       />
@@ -120,7 +120,7 @@ const NtcAdminPage: React.FC = () => {
       {/*Schedule Template Endpoints */}
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/schedule-template"
+        endpointUrl="https://silunienara.me/schedule-template"
         httpMethod="POST"
         fields={[
           {
@@ -155,16 +155,16 @@ const NtcAdminPage: React.FC = () => {
         ]}
       />
 
-      <ApiEndpointCard endpointUrl="http://localhost:5000/schedule-template" httpMethod="GET" fields={[]} />
+      <ApiEndpointCard endpointUrl="https://silunienara.me/schedule-template" httpMethod="GET" fields={[]} />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/schedule-template/:templateId"
+        endpointUrl="https://silunienara.me/schedule-template/:templateId"
         httpMethod="GET"
         fields={[{ label: "Template ID", key: "templateId", value: "1" }]}
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/schedule-template/:templateId"
+        endpointUrl="https://silunienara.me/schedule-template/:templateId"
         httpMethod="PUT"
         fields={[
           { label: "Template ID", key: "templateId", value: "1" },
@@ -177,14 +177,14 @@ const NtcAdminPage: React.FC = () => {
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/schedule-template/:templateId"
+        endpointUrl="https://silunienara.me/schedule-template/:templateId"
         httpMethod="DELETE"
         fields={[{ label: "Template ID", key: "templateId", value: "1" }]}
       />
 
       {/* Schedule Endpoints */}
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/schedule"
+        endpointUrl="https://silunienara.me/schedule"
         httpMethod="POST"
         fields={[
           { label: "Route ID", key: "routeId", value: "1" },
@@ -194,16 +194,16 @@ const NtcAdminPage: React.FC = () => {
         ]}
       />
 
-      <ApiEndpointCard endpointUrl="http://localhost:5000/schedule" httpMethod="GET" fields={[]} />
+      <ApiEndpointCard endpointUrl="https://silunienara.me/schedule" httpMethod="GET" fields={[]} />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/schedule/:scheduleId"
+        endpointUrl="https://silunienara.me/schedule/:scheduleId"
         httpMethod="GET"
         fields={[{ label: "Schedule ID", key: "scheduleId", value: "1" }]}
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/schedule/:scheduleId"
+        endpointUrl="https://silunienara.me/schedule/:scheduleId"
         httpMethod="PUT"
         fields={[
           { label: "Schedule ID", key: "scheduleId", value: "2" },
@@ -224,7 +224,7 @@ const NtcAdminPage: React.FC = () => {
       />
 
       <ApiEndpointCard
-        endpointUrl="http://localhost:5000/schedule/:scheduleId"
+        endpointUrl="https://silunienara.me/schedule/:scheduleId"
         httpMethod="DELETE"
         fields={[{ label: "Schedule ID", key: "scheduleId", value: "1" }]}
       />

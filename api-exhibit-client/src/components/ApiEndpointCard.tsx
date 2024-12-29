@@ -65,7 +65,7 @@ const ApiEndpointCard: React.FC<ApiEndpointCardProps> = ({ endpointUrl, httpMeth
         if (refreshToken) {
           try {
             // Attempt to refresh the token
-            const refreshRes = await axios.post("http://localhost:5002/auth/refresh", {
+            const refreshRes = await axios.post("https://silunienara.me/auth/refresh", {
               refreshToken,
             });
 
