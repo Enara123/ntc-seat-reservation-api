@@ -3,7 +3,7 @@ import authService, { checkUserExists, handleRefreshToken } from "../service/aut
 export const register = async (req, res) => {
   try {
     const userData = req.body;
-    const roleId = 1;
+    const roleId = 2;
 
     const newUser = await authService.addUser(userData, roleId);
 
@@ -25,7 +25,7 @@ export const login = async (req, res) => {
   }
 };
 
-export const refreshToken = async (req, res) => {
+export const refresh = async (req, res) => {
   const { refreshToken } = req.body;
 
   if (!refreshToken) return res.status(400).json({ message: "Refresh token missing" });
