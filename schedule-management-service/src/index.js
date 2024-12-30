@@ -7,6 +7,7 @@ import scheduleRoutes from "./routes/scheduleRoutes.js";
 import authMiddleware from "../middleware/authMiddleware.js";
 import dotenv from "dotenv";
 import cors from "cors";
+import sequelize from "./config/database.js";
 
 dotenv.config();
 
@@ -33,6 +34,8 @@ const PORT = process.env.PORT;
 (async () => {
     try {
         app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+        await sequelize.authenticate();
+        console.log("Connected to database");
     } catch (error) {
         console.error("Error starting server:", error);
     }
