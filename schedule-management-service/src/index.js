@@ -21,7 +21,7 @@ app.use(cors({
 
 app.use(express.json());
 
-// app.use(authMiddleware);
+app.use(authMiddleware);
 
 app.use("/bus", busRoutes);
 app.use("/cities", cityRoutes);
